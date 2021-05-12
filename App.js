@@ -89,7 +89,7 @@ export default function App(props) {
 
     return html`
         <div class="flex p-1 gap-1 h-screen flex-col md:flex-row">
-            <div class=" flex-auto border p-1">
+            <div class="flex-auto md:w-1/2 border p-1">
                 <div>
                     <label class=${'border py-0.5 px-2 cursor-pointer' + (editorType === 'HTML' ? ' bg-blue-400 text-white' : '')}>
                         HTML
@@ -106,15 +106,15 @@ export default function App(props) {
                         <input onInput=${handleSelectEditorType} class="hidden" type="radio"
                                checked=${editorType === 'JavaScript'} name="editorType" value="JavaScript" />
                     </label>
-                    <span onCLick=${handleReset} class="cursor-pointer border py-0.5 px-2 ml-2">RESET</span>
+                    <span onCLick=${handleReset} class="cursor-pointer bg-red-400 text-white border py-0.5 px-2 ml-2">RESET</span>
                 </div>
                 <!--suppress HtmlUnknownAttribute -->
                 <div ref=${inputRef} contentEditable="true" onInput=${handleInputText}
-                     class="border mt-1 outline-none"
+                     class="border mt-1 outline-none whitespace-nowrap overflow-auto"
                      style="height: calc(100% - 1.75rem)">
                 </div>
             </div>
-            <div class="flex-auto border">
+            <div class="flex-auto md:w-1/2 border">
                 <iframe id="preview" class="w-full h-full" src=${'./preview.html?p=' + payload}></iframe>
             </div>
         </div>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preview</title>
+</head>
+<body>
+
+<script type="module">
+    import { decodePayload } from './utils.js'
+
+    function applyHTML(htmlText) {
+        document.body.insertAdjacentHTML('afterbegin', htmlText)
+    }
+
+    function applyCSS(cssText) {
+        const style = document.createElement('style')
+        style.innerHTML = cssText;
+        document.head.appendChild(style);
+    }
+
+    function applyScript(scriptText) {
+        const script = document.createElement("script")
+        try {
+            script.appendChild(document.createTextNode(scriptText))
+        } catch (err) {
+            script.text = scriptText
+        }
+        document.head.appendChild(script)
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const payload = new URLSearchParams(location.search).get('p')
+        const text = decodePayload(payload)
+        if (!text) {
+            return
+        }
+        applyHTML(text.htmlText)
+        applyCSS(text.cssText)
+        applyScript(text.scriptText)
+    })
+</script>
+</body>
+</html>
